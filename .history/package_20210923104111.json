@@ -1,0 +1,25 @@
+{
+    "name": "blog_list_backend",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "node NODE_ENV=production  index.js",
+        "dev": "nodemon NODE_ENV=development index.js",
+        "test": "jest NODE_ENV=test --verbose"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "cors": "^2.8.5",
+        "dotenv": "^10.0.0",
+        "express": "^4.17.1",
+        "mongoose": "^6.0.7",
+        "morgan": "^1.10.0"
+    },
+    "devDependencies": {
+        "jest": "^27.2.1",
+        "nodemon": "^2.0.12"
+    }
+}
