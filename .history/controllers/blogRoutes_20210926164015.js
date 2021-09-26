@@ -17,7 +17,7 @@ BlogRouter.post('/', passport.authenticate("jwt", { session: false }), async(req
         user,
         url,
         likes
-    } = request.body;
+    } = req.body;
 
     const blog = new Blog({
         title,
@@ -26,7 +26,7 @@ BlogRouter.post('/', passport.authenticate("jwt", { session: false }), async(req
         likes
     })
 
-    const createdBLog = await blog
+    const createdBLog = blog
         .save();
     response.status(201).json(createdBLog)
 })

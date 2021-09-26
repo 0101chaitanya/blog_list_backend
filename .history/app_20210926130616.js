@@ -4,11 +4,7 @@ require("express-async-errors")
 const cors = require('cors')
 const mongoose = require('mongoose')
 const BlogRouter = require('./controllers/blogRoutes');
-const UserRouter = require('./controllers/userRoutes');
-const passport = require('passport');
 const Blog = require('./models/blog');
-const User = require('./models/user');
-
 const config = require('./utils/config');
 const { info, error } = require("./utils/logger");
 
@@ -24,13 +20,9 @@ mongoose.connect(config.MONGODB_URI, {
         error('error connecting to MongoDB:', error.message)
     })
 
-require('./utils/passport')(passport);
-app.use(passport.initialize());
 
 //app.use(cors())
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
+app.use(express.json())
 app.use(morgan("dev"));
 morgan.token('body', function getBody(req) {
     return JSON.stringify(req.body)
@@ -40,7 +32,7 @@ app.use(morgan(" :body"))
 
 
 app.use('/api/blogs', BlogRouter)
-app.use('/api/users', UserRouter)
+app.use('/api/users', userRouter)
 
 
 

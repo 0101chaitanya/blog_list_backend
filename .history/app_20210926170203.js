@@ -5,7 +5,7 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const BlogRouter = require('./controllers/blogRoutes');
 const UserRouter = require('./controllers/userRoutes');
-const passport = require('passport');
+
 const Blog = require('./models/blog');
 const User = require('./models/user');
 
@@ -25,12 +25,9 @@ mongoose.connect(config.MONGODB_URI, {
     })
 
 require('./utils/passport')(passport);
-app.use(passport.initialize());
 
 //app.use(cors())
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
+app.use(express.json())
 app.use(morgan("dev"));
 morgan.token('body', function getBody(req) {
     return JSON.stringify(req.body)

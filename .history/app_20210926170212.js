@@ -25,12 +25,9 @@ mongoose.connect(config.MONGODB_URI, {
     })
 
 require('./utils/passport')(passport);
-app.use(passport.initialize());
 
 //app.use(cors())
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
+app.use(express.json())
 app.use(morgan("dev"));
 morgan.token('body', function getBody(req) {
     return JSON.stringify(req.body)

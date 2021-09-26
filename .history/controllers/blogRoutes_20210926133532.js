@@ -1,8 +1,8 @@
 const BlogRouter = require('express').Router();
 const Blog = require('../models/blog');
-const passport = require("passport")
 
-BlogRouter.get('/', passport.authenticate("jwt", { session: false }), async(request, response) => {
+
+BlogRouter.get('/', async(request, response) => {
 
     const blogs = await Blog
         .find({}).populate("user").lean();
@@ -11,13 +11,13 @@ BlogRouter.get('/', passport.authenticate("jwt", { session: false }), async(requ
 
 })
 
-BlogRouter.post('/', passport.authenticate("jwt", { session: false }), async(request, response) => {
+BlogRouter.post('/', async(request, response) => {
     const {
         title,
         user,
         url,
         likes
-    } = request.body;
+    } = req.body;
 
     const blog = new Blog({
         title,
@@ -26,7 +26,7 @@ BlogRouter.post('/', passport.authenticate("jwt", { session: false }), async(req
         likes
     })
 
-    const createdBLog = await blog
+    const createdBLog = blog
         .save();
     response.status(201).json(createdBLog)
 })
