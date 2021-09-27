@@ -1,7 +1,7 @@
 const BlogRouter = require('express').Router();
 const Blog = require('../models/blog');
 const passport = require("passport")
-const mongoose = require("mongoose");
+
 BlogRouter.get('/', passport.authenticate("jwt", { session: false }), async(request, response) => {
 
     const blogs = await Blog
@@ -18,10 +18,10 @@ BlogRouter.post('/', passport.authenticate("jwt", { session: false }), async(req
         url,
         likes
     } = request.body;
-    console.log(user)
+
     const blog = new Blog({
         title,
-        user: mongoose.mongo.ObjectId(user),
+        user: mongoose.Types.ObjectId(user),
         url,
         likes
     })

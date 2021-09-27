@@ -21,7 +21,7 @@ BlogRouter.post('/', passport.authenticate("jwt", { session: false }), async(req
     console.log(user)
     const blog = new Blog({
         title,
-        user: mongoose.mongo.ObjectId(user),
+        user: user, //mongoose.Types.ObjectId(user),
         url,
         likes
     })
