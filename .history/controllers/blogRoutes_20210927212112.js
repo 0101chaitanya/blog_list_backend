@@ -46,7 +46,7 @@ BlogRouter.put('/:id', passport.authenticate("jwt", { session: false }), async(r
     }).lean();
     return response.status(201).json(updatedBLog)
 })
-BlogRouter.delete('/:id', passport.authenticate("jwt", { session: false }), async(request, response) => {
+BlogRouter.put('/:id', passport.authenticate("jwt", { session: false }), async(request, response) => {
 
     const deletedBlog = await Blog.findByIdAndRemove(request.params.id).lean();
     return response.status(201).json(deletedBlog)

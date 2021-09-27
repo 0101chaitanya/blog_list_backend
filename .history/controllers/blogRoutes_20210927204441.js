@@ -32,7 +32,7 @@ BlogRouter.post('/', passport.authenticate("jwt", { session: false }), async(req
 })
 
 
-BlogRouter.put('/:id', passport.authenticate("jwt", { session: false }), async(request, response) => {
+BlogRouter.post('/:id', passport.authenticate("jwt", { session: false }), async(request, response) => {
     const {
         title,
         user,
@@ -41,15 +41,10 @@ BlogRouter.put('/:id', passport.authenticate("jwt", { session: false }), async(r
     } = request.body;
     console.log(user)
 
-    const updatedBLog = await Blog.findByIdAndUpdate(request.params.id, {
+    const updatedBLog = await Blog.findByIdAndUpdate(req.params.id, {
         likes
     }).lean();
-    return response.status(201).json(updatedBLog)
-})
-BlogRouter.delete('/:id', passport.authenticate("jwt", { session: false }), async(request, response) => {
-
-    const deletedBlog = await Blog.findByIdAndRemove(request.params.id).lean();
-    return response.status(201).json(deletedBlog)
+    return response.status(201).json(createdBLog)
 })
 
 module.exports = BlogRouter;

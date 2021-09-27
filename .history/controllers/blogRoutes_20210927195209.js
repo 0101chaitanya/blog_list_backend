@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 BlogRouter.get('/', passport.authenticate("jwt", { session: false }), async(request, response) => {
 
     const blogs = await Blog
-        .find({}).populate("user", "username name").lean();
+        .find({}).populate("user", { name: 1, blogs: 1 }).lean();
 
     response.json(blogs);
 
@@ -29,27 +29,6 @@ BlogRouter.post('/', passport.authenticate("jwt", { session: false }), async(req
     const createdBLog = await blog
         .save();
     response.status(201).json(createdBLog)
-})
-
-
-BlogRouter.put('/:id', passport.authenticate("jwt", { session: false }), async(request, response) => {
-    const {
-        title,
-        user,
-        url,
-        likes
-    } = request.body;
-    console.log(user)
-
-    const updatedBLog = await Blog.findByIdAndUpdate(request.params.id, {
-        likes
-    }).lean();
-    return response.status(201).json(updatedBLog)
-})
-BlogRouter.delete('/:id', passport.authenticate("jwt", { session: false }), async(request, response) => {
-
-    const deletedBlog = await Blog.findByIdAndRemove(request.params.id).lean();
-    return response.status(201).json(deletedBlog)
 })
 
 module.exports = BlogRouter;
